@@ -13,14 +13,14 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Rae', 'daisywheel22@gmail.com'),
 )
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3wx&u1c%9ncuqj-o8ivej*=68#%_6wfep!t0=ej2msoyvo9ylv'
+SECRET_KEY = '3wx&u1c%9ncuqj-akakaej*=68#%_6wfep!t0=ej2msoyvo9ylv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -60,8 +60,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    #os.path.join(BASE_DIR, 'templates'),
-    '/home/zar/Desktop/Projects/Bumble/bumble/bumble/templates/',
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 # List of callables that know how to import templates from various sources.
@@ -75,17 +74,22 @@ TEMPLATE_LOADERS = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        "NAME": "rknowler",                      # Or path to database file if using sqlite3.
+        'USER': 'bellisk',                      # Not used with sqlite3.
+        'PASSWORD': 'v9WnyFz8',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
+
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-gb'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Zurich'
 
 USE_I18N = True
 
@@ -99,5 +103,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = '/home/bellisk/webapps/rknowler_static/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = '/home/bellisk/webapps/rknowler_static/media'
+
+ADMIN_MEDIA_PREFIX = '/static/admin/'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_HOST_USER = 'daisywheel22@gmail.com'
+EMAIL_HOST_PASSWORD = '--myfanwy'
+DEFAULT_FROM_EMAIL = 'daisywheel22@gmail.com'
+SERVER_EMAIL = 'daisywheel22@gmail.com'
