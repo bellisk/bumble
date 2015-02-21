@@ -21,6 +21,7 @@
 
             <!-- Bootstrap -->
             <link href="{% static "bumbl/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+            <link href="{% static "bumbl/bootstrap/css/bootstrap-theme.min.css" %}" rel="stylesheet">
 
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,7 +34,9 @@
 
     <body>
         <div id="page">
+            <div class="well">
             <h1 id="page-title">{% block pageTitle %}{% endblock %}</h1>
+            </div>
             <div id="all-content">
                 {% block content %}{% endblock %}
             </div>
