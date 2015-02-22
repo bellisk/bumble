@@ -22,9 +22,6 @@
     {% if user.is_staff %}
         <a href="{% url 'admin:bumbl_entry_change' entry.id %}" class="edit-link">Edit</a>
     {% endif %}
-    <div id="date">
-        {{entry.created}}
-    </div>
     <div id="lead">
         {{entry.lead|filepaths|md|safe}}
     </div>
