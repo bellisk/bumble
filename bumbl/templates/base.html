@@ -35,7 +35,10 @@
     <body>
         <div id="page" class="container">
             <div class="jumbotron">
-            <h1 id="page-title">{% block pageTitle %}{% endblock %}</h1>
+                <h1 id="page-title">{% block pageTitle %}{% endblock %}</h1>
+                {% if entry.parent %}
+                    <a href="{% url 'bumble.bumbl.views.entry' entry.parent.path|urlify_path %}" class="parent-link">{{entry.parent.title}}</a>
+                {% endif %}
             </div>
             <div id="all-content">
                 {% block content %}{% endblock %}
