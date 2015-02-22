@@ -39,6 +39,9 @@
                 {% if entry.parent %}
                     <a href="{% url 'bumble.bumbl.views.entry' entry.parent.path|urlify_path %}" class="parent-link">{{entry.parent.title}}</a>
                 {% endif %}
+                <div id="date">
+                    {{entry.created}}
+                </div>
             </div>
             <div id="all-content">
                 {% block content %}{% endblock %}
