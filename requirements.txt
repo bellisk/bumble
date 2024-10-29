@@ -4,5 +4,5 @@ Django==1.11.29
 idna==2.6
 Markdown==2.6.9
 requests==2.32.2
-urllib3==1.26.5
+urllib3==1.26.19
 wheel==0.38.1
