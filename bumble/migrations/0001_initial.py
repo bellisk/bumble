@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
                 ('total_section_content', models.TextField(blank=True)),
                 ('path', models.TextField(blank=True)),
                 ('commentsOn', models.BooleanField(default=True, help_text='Check to allow new comments on a page. Existing comments will be displayed even when this is unchecked.')),
-                ('parent', models.ForeignKey(blank=True, null=True, related_name='children', to='bumbl.Entry')),
+                ('parent', models.ForeignKey(blank=True, on_delete=models.SET_NULL, null=True, related_name='children', to='bumble.Entry')),
             ],
             options={
                 'verbose_name_plural': 'entries',
@@ -84,13 +84,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='entry',
             name='tags',
-            field=models.ManyToManyField(blank=True, related_name='entries', to='bumbl.Tag'),
+            field=models.ManyToManyField(blank=True, related_name='entries', to='bumble.Tag'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='comment',
             name='entry',
-            field=models.ForeignKey(to='bumbl.Entry'),
+            field=models.ForeignKey(to='bumble.Entry', on_delete=models.SET_NULL, null=True),
             preserve_default=True,
         ),
     ]
