@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load tags %}
+
+{% block css %}{{entry.total_css|filepaths|safe}}{% endblock %}
+
+{% block title %}{{entry.title}}{% endblock %}
+
+{% block feedTitle %}{{entry.title}}{% endblock %}
+
+{% block pageTitle %}{{entry.title}}{% endblock %}
+
+{% block head %}
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{entry.title}}">
+    <meta name="twitter:description" content="{{entry.lead|md|striptags}}">
+    {% if entry.lead|thumb %}
+        <meta name="twitter:image" content="{{entry.lead|thumb}}">
+    {% endif %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+
+{% block content %}
+    {% if user.is_staff %}
+        <a href="{% url 'admin:bumbl_entry_change' entry.id %}" class="edit-link">Edit</a>
+    {% endif %}
+    {% if entry.parent %}
+        <a href="{% url 'entry' entry.parent.path|urlify_path %}" class="parent-link">{{entry.parent.title}}</a>
+    {% endif %}
+    <div id="date">
+        {{entry.created}}
+    </div>
+    <div id="lead">
+        {{entry.lead|filepaths|tagslist|md|safe}}
+    </div>
+    <div id="content">
+        {{entry.total_section_content|filepaths|tagslist|md|safe}}
+        {{entry.content|filepaths|tagslist|md|safe}}
+    </div>
+    <ul id="tags">
+        {% for t in entry.tags.all %}
+            {% if entry.parent.path %}
+                <li class="tag"><a href="{% url 'entry' entry.parent.path|urlify_path %}/tag/{{t.name}}">{{t.name}}</a></li>
+            {% else %}
+                <li class="tag"><a href="{% url 'entry' entry.parent.path|urlify_path %}tag/{{t.name}}">{{t.name}}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <ul id="comments">
+        {% for c in entry.sorted_comments.all %}
+            <li class="comment"><span class="commenter">{{c.commenter}}</span><a href="{% url 'entry' entry.path|urlify_path %}#{{c.id}}" class="comment-date" name="{{c.id}}">{{c.created}}</a><span class="comment-text">{{c.text}}</span></li>
+        {% endfor %}
+    </ul>
+    {% if entry.commentsOn %}
+        <form action="" method="post" id="comment-form">{% csrf_token %}
+            {{ commentForm.as_p }}
+            <span id="captcha">
+                <div class="g-recaptcha" data-sitekey="{{ recaptcha_key }}"></div>
+            </span>
+            <input type="submit" value="Add Comment" />
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block descendents %}
+    {% for d in descendents %}
+		<li class="descendent"><a href="{% url 'entry' d.path|urlify_path %}" class="descendent-link">{{d.title}}<span class="descendent-date">{{d.created}}</span></a><span class="descendent-lead">{{d.lead|filepaths|md|safe}}</span></li>
+	{% endfor %}
+{% endblock %}

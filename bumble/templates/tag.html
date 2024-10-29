@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load tags %}
+
+{% block css %}
+{{entry.total_css|filepaths|safe}}
+{{tag.css}}
+{% endblock %}
+
+{% block title %}
+{{entry.title}}:
+{% if tag %}
+    {{ tag.nice_title }}
+{% else %}
+    {% for t in tags %}{{t}} {% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block feedTitle %}
+{{entry.title}}:
+{% if tag %}
+    {{ tag.nice_title }}
+{% else %}
+    {% for t in tags %}{{t}} {% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block pageTitle %}
+{{entry.title}}:
+{% if tag %}
+    {{ tag.nice_title }}
+{% else %}
+    {% for t in tags %}{{t}} {% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{{tag.content|filepaths|tagslist|md|safe}}
+{% endblock %}
+
+{% block descendents %}
+    {% for e in entries %}
+        <li class="descendent"><a href="{% url 'entry' e.path|urlify_path %}" class="descendent-link">{{e.title}}<span class="descendent-date">{{d.created}}</span></a><span class="descendent-lead">{{e.lead|filepaths|md|safe}}</span></li>
+    {% endfor %}
+{% endblock %}
