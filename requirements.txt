@@ -3,6 +3,6 @@ chardet==3.0.4
 Django==1.11.29
 idna==2.6
 Markdown==2.6.9
-requests==2.20.0
+requests==2.32.2
 urllib3==1.26.5
 wheel==0.38.1
