@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bumbl', '0001_initial'),
+        ('bumble', '0001_initial'),
     ]
 
     operations = [

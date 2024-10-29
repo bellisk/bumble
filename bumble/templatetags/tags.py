@@ -1,5 +1,5 @@
 from django import template
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 import re
 from ..models import File, Tag
 from django.conf import settings

@@ -33,7 +33,7 @@ class Comment(models.Model):
     email = models.EmailField(max_length=254)
     ip = models.CharField(max_length=100)
     text = models.CharField(max_length=5000)
-    entry = models.ForeignKey("Entry")
+    entry = models.ForeignKey("Entry", on_delete=models.SET_NULL, null=True)
     def __str__(self):
         return self.commenter + ": " + self.text[:100]
 
@@ -48,7 +48,7 @@ class Entry(models.Model):
     content = models.TextField(blank=True, help_text="""Use *** to denote text for markdown.<br>Use {{f:filename}} to get the path of a file.""")
     section_content = models.TextField(blank=True, help_text="""Included in all descendents. Use *** to denote text for markdown.<br>Use {{f:filename}} to get the path of a file.""")
     total_section_content = models.TextField(blank=True)
-    parent = models.ForeignKey("self", blank=True, null=True, related_name="children")
+    parent = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, null=True, related_name="children")
     path = models.TextField(blank=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="entries")
     commentsOn = models.BooleanField(default=True, help_text="""Check to allow new comments on a page. Existing comments will be displayed even when this is unchecked.""")

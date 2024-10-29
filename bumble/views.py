@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Entry, Tag, Redirect, RawEntry
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, Http404
 from .settings import PAGINATION, RECAPTCHA_PUBLIC, RECAPTCHA_PRIVATE
 import json, re, requests
@@ -11,7 +11,7 @@ from .forms import CommentForm
 from django.utils import formats
 from django.core.mail import send_mail, mail_admins
 from django.utils.timezone import now
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from .feed import BumbleFeed
 
 def normalize_path(path):
@@ -53,7 +53,7 @@ def entry(request, path):
             link=entry_url(e.path),
             pubdate=e.created,
             updateddate=e.created,
-            content=force_text(md(filepaths(extract_content(e))), strings_only=True),
+            content=force_str(md(filepaths(extract_content(e))), strings_only=True),
             author_name=settings.FEED_AUTHOR_NAME,
             author_email=settings.FEED_AUTHOR_EMAIL,
             author_link=settings.FEED_AUTHOR_LINK,
