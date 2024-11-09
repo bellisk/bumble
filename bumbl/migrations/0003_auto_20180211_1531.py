@@ -8,29 +8,40 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bumbl', '0002_auto_20171102_2049'),
+        ("bumbl", "0002_auto_20171102_2049"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='RawEntry',
+            name="RawEntry",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('path', models.CharField(max_length=1000)),
-                ('content', models.TextField(blank=True)),
-                ('content_type', models.CharField(default='text/html', max_length=1000)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("path", models.CharField(max_length=1000)),
+                ("content", models.TextField(blank=True)),
+                (
+                    "content_type",
+                    models.CharField(default="text/html", max_length=1000),
+                ),
             ],
             options={
-                'ordering': ['path'],
-                'verbose_name_plural': 'raw entries',
+                "ordering": ["path"],
+                "verbose_name_plural": "raw entries",
             },
         ),
         migrations.AlterModelOptions(
-            name='entry',
-            options={'ordering': ['-created'], 'verbose_name_plural': 'entries'},
+            name="entry",
+            options={"ordering": ["-created"], "verbose_name_plural": "entries"},
         ),
         migrations.AlterModelOptions(
-            name='tag',
-            options={'ordering': ['name']},
+            name="tag",
+            options={"ordering": ["name"]},
         ),
     ]
