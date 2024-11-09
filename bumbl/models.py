@@ -1,9 +1,10 @@
-from django.db import models
-from django.core.exceptions import ValidationError
 import datetime
-from django.utils.timezone import now
 from hashlib import sha256
+
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.utils.timezone import now
 
 
 class File(models.Model):

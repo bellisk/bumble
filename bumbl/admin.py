@@ -1,5 +1,6 @@
-from .models import Entry, Tag, File, Comment, Redirect, RawEntry
 from django.contrib import admin
+
+from .models import Comment, Entry, File, RawEntry, Redirect, Tag
 
 
 class EntryAdmin(admin.ModelAdmin):

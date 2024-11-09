@@ -1,23 +1,27 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Entry, Tag, Redirect, RawEntry
-from django.urls import reverse
-from django.http import (
-    HttpResponse,
-    HttpResponseRedirect,
-    HttpResponseForbidden,
-    Http404,
-)
-from .settings import PAGINATION, RECAPTCHA_PUBLIC, RECAPTCHA_PRIVATE
-import json, re, requests
+import json
+import re
+
+import requests
 from django.conf import settings
-from django.utils.html import escape
-from .templatetags.tags import filepaths, md, ensure_trailing_slash, urlify_path
-from .forms import CommentForm
+from django.core.mail import mail_admins, send_mail
+from django.http import (
+    Http404,
+    HttpResponse,
+    HttpResponseForbidden,
+    HttpResponseRedirect,
+)
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils import formats
-from django.core.mail import send_mail, mail_admins
-from django.utils.timezone import now
 from django.utils.encoding import force_str
+from django.utils.html import escape
+from django.utils.timezone import now
+
 from .feed import BumbleFeed
+from .forms import CommentForm
+from .models import Entry, RawEntry, Redirect, Tag
+from .settings import PAGINATION, RECAPTCHA_PRIVATE, RECAPTCHA_PUBLIC
+from .templatetags.tags import ensure_trailing_slash, filepaths, md, urlify_path
 
 
 def normalize_path(path):

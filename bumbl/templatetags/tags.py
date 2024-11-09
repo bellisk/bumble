@@ -1,9 +1,11 @@
-from django import template
-from django.urls import reverse
 import re
-from ..models import File, Tag
-from django.conf import settings
+
 import markdown
+from django import template
+from django.conf import settings
+from django.urls import reverse
+
+from ..models import File, Tag
 
 register = template.Library()
 
