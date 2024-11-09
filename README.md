@@ -10,16 +10,14 @@ This version of Bumble was developed against Python 3.5 and Django 1.11.
 A server with Apache, Python 3 (and the ability to install Python packages) and a database. SQLite will do in a pinch. Git is a plus. We've done some installs on [Webfaction](https://www.webfaction.com/), but anyplace that satisfies the above requirements will do.
 
 ### Development installation
-* Download or clone Bumble
+* Download or clone Bumble: `git clone git@github.com:Zarkonnen/bumble.git && cd bumble/`
 * Initialise and activate a virtual environment: `python3 -m venv venv && source venv/bin/activate`
-* Make sure your version of pip is at least 9.0.1
 * Install the required packages using pip: `pip install -r requirements.txt`
-* Then, export the following environment variables:
-* `export DJANGO_SETTINGS_MODULE=bumble.local_settings`
-* `export PYTHONPATH=$PYTHONPATH:<path-to-bumble-install>`
-* Run `django-admin migrate` to create the database
-* Run `django-admin createsuperuser` to create the admin, entering a username and password when prompted
-* Run `django-admin runserver` to start the server
+* Then, add the path to your PYTHONPATH: `export PYTHONPATH=$PYTHONPATH:<path-to-bumble-install>`
+* Run `python manage.py migrate` to create the database
+* Run `python manage.py createsuperuser` to create the admin, entering a username and password when prompted
+* Run `python manage.py runserver` to start the server
+* Go to http://127.0.0.1/admin to log in to the Django admin console and start creating entries
 
 ### Deployment
 * Download or clone Bumble into a suitable location on the server.
@@ -36,11 +34,9 @@ A server with Apache, Python 3 (and the ability to install Python packages) and 
     * Add your domain names to ALLOWED_HOSTS
     * If you need email, uncomment and configure the email settings
 * Follow the instructions in bumbl/settings.py to set up the recaptcha
-* Then, export the following environment variables:
-* `export DJANGO_SETTINGS_MODULE=bumble.local_settings`
-* `export PYTHONPATH=$PYTHONPATH:<path-to-bumble-install>`
-* Run `django-admin migrate` to create the database
-* Run `django-admin createsuperuser` to create the admin, entering a username and password when prompted
+* Then, add the path to your PYTHONPATH: `export PYTHONPATH=$PYTHONPATH:<path-to-bumble-install>`
+* Run `python manage.py migrate` to create the database
+* Run `python manage.py createsuperuser` to create the admin, entering a username and password when prompted
 * Restart apache if needed
 
 ## Usage

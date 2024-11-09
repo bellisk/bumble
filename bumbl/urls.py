@@ -1,7 +1,8 @@
-from django.conf.urls import include, url
+from django.urls import path, re_path
+
 from . import views
 
 urlpatterns = [
-    url(r'^__page/([0-9]+)/(.*)$', views.page, name="page"),
-    url(r'^(.*)$', views.entry, name="entry")
+    re_path('__page/(?P<from_index>[0-9]+)/(?P<path>.*)', views.page, name="page"),
+    re_path(r'^(?P<path>.*)$', views.entry, name="entry")
 ]
