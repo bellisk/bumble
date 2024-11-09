@@ -1,9 +1,8 @@
 import json
-import re
 
 import requests
 from django.conf import settings
-from django.core.mail import mail_admins, send_mail
+from django.core.mail import mail_admins
 from django.http import (
     Http404,
     HttpResponse,
