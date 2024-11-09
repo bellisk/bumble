@@ -162,7 +162,7 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(
                 blank=True, related_name="entries", to="bumbl.Tag"
             ),
-            preserve_default=True,0
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name="comment",
