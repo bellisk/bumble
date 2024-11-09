@@ -7,90 +7,168 @@ import datetime
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('commenter', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=254)),
-                ('ip', models.CharField(max_length=100)),
-                ('text', models.CharField(max_length=5000)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        serialize=False,
+                        primary_key=True,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                ("commenter", models.CharField(max_length=100)),
+                ("email", models.EmailField(max_length=254)),
+                ("ip", models.CharField(max_length=100)),
+                ("text", models.CharField(max_length=5000)),
+            ],
+            options={},
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name="Entry",
+            fields=[
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        serialize=False,
+                        primary_key=True,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created", models.DateTimeField(default=datetime.datetime.now)),
+                ("title", models.CharField(max_length=1000)),
+                ("slug", models.SlugField(blank=True)),
+                ("css", models.TextField(blank=True)),
+                ("local_css", models.TextField(blank=True)),
+                ("total_css", models.TextField(blank=True)),
+                ("lead", models.TextField(blank=True)),
+                (
+                    "content",
+                    models.TextField(
+                        blank=True,
+                        help_text="Use *** to denote text for markdown.<br>Use {{f:filename}} to get the path of a file.",
+                    ),
+                ),
+                (
+                    "section_content",
+                    models.TextField(
+                        blank=True,
+                        help_text="Included in all descendents. Use *** to denote text for markdown.<br>Use {{f:filename}} to get the path of a file.",
+                    ),
+                ),
+                ("total_section_content", models.TextField(blank=True)),
+                ("path", models.TextField(blank=True)),
+                (
+                    "commentsOn",
+                    models.BooleanField(
+                        default=True,
+                        help_text="Check to allow new comments on a page. Existing comments will be displayed even when this is unchecked.",
+                    ),
+                ),
+                (
+                    "parent",
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=models.SET_NULL,
+                        null=True,
+                        related_name="children",
+                        to="bumbl.Entry",
+                    ),
+                ),
             ],
             options={
+                "verbose_name_plural": "entries",
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Entry',
+            name="File",
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
-                ('created', models.DateTimeField(default=datetime.datetime.now)),
-                ('title', models.CharField(max_length=1000)),
-                ('slug', models.SlugField(blank=True)),
-                ('css', models.TextField(blank=True)),
-                ('local_css', models.TextField(blank=True)),
-                ('total_css', models.TextField(blank=True)),
-                ('lead', models.TextField(blank=True)),
-                ('content', models.TextField(blank=True, help_text='Use *** to denote text for markdown.<br>Use {{f:filename}} to get the path of a file.')),
-                ('section_content', models.TextField(blank=True, help_text='Included in all descendents. Use *** to denote text for markdown.<br>Use {{f:filename}} to get the path of a file.')),
-                ('total_section_content', models.TextField(blank=True)),
-                ('path', models.TextField(blank=True)),
-                ('commentsOn', models.BooleanField(default=True, help_text='Check to allow new comments on a page. Existing comments will be displayed even when this is unchecked.')),
-                ('parent', models.ForeignKey(blank=True, on_delete=models.SET_NULL, null=True, related_name='children', to='bumbl.Entry')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        serialize=False,
+                        primary_key=True,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=1000)),
+                ("f", models.FileField(upload_to="uploads")),
             ],
-            options={
-                'verbose_name_plural': 'entries',
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='File',
+            name="Redirect",
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
-                ('name', models.CharField(max_length=1000)),
-                ('f', models.FileField(upload_to='uploads')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        serialize=False,
+                        primary_key=True,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "redirect_from",
+                    models.CharField(
+                        max_length=1000,
+                        help_text='Path format: starting slash, no trailing slash. Example: "/foo".',
+                    ),
+                ),
+                (
+                    "redirect_to",
+                    models.CharField(
+                        max_length=1000,
+                        help_text='Path format: starting slash, no trailing slash. Example: "/foo".',
+                    ),
+                ),
+                ("permanent", models.BooleanField(default=True)),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Redirect',
+            name="Tag",
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
-                ('redirect_from', models.CharField(max_length=1000, help_text='Path format: starting slash, no trailing slash. Example: "/foo".')),
-                ('redirect_to', models.CharField(max_length=1000, help_text='Path format: starting slash, no trailing slash. Example: "/foo".')),
-                ('permanent', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        serialize=False,
+                        primary_key=True,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=1000)),
             ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Tag',
-            fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
-                ('name', models.CharField(max_length=1000)),
-            ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.AddField(
-            model_name='entry',
-            name='tags',
-            field=models.ManyToManyField(blank=True, related_name='entries', to='bumbl.Tag'),
-            preserve_default=True,
+            model_name="entry",
+            name="tags",
+            field=models.ManyToManyField(
+                blank=True, related_name="entries", to="bumbl.Tag"
+            ),
+            preserve_default=True,0
         ),
         migrations.AddField(
-            model_name='comment',
-            name='entry',
-            field=models.ForeignKey(to='bumbl.Entry', on_delete=models.SET_NULL, null=True),
+            model_name="comment",
+            name="entry",
+            field=models.ForeignKey(
+                to="bumbl.Entry", on_delete=models.SET_NULL, null=True
+            ),
             preserve_default=True,
         ),
     ]

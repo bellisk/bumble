@@ -1,8 +1,14 @@
 from .models import Entry, Tag, File, Comment, Redirect, RawEntry
 from django.contrib import admin
 
+
 class EntryAdmin(admin.ModelAdmin):
-    exclude = ("path", "total_css", "total_section_content", )
+    exclude = (
+        "path",
+        "total_css",
+        "total_section_content",
+    )
+
 
 admin.site.register(Entry, EntryAdmin)
 admin.site.register(Tag)
